@@ -23,6 +23,11 @@ relationship_table = db.Table(
 )
 
 PAT = os.environ.get("FACEBOOK_TOKEN")
+reddit = praw.Reddit(
+    client_id=os.environ.get("REDDIT_CLIENT_ID"),
+    client_secret=os.environ.get("REDDIT_CLIENT_SECRET"),
+    user_agent="my user agent",
+)
 
 
 def get_or_create(session, model, **kwargs):
@@ -124,17 +129,17 @@ quick_replies_list = [
 def send_message(token, recipient, text):
     """Send the message text to recipient with id recipient."""
 
-    if "meme" in text.lower():
+    if b"meme" in text.lower():
         subreddit_name = "memes"
-    elif "shower" in text.lower():
+    elif b"shower" in text.lower():
         subreddit_name = "Showerthoughts"
-    elif "hmb" in text.lower():
+    elif b"hmb" in text.lower():
         subreddit_name = "holdmybeer"
-    elif "lotr" in text.lower():
+    elif b"lotr" in text.lower():
         subreddit_name = "lotrmemes"
-    elif "workspaces" in text.lower():
+    elif b"workspaces" in text.lower():
         subreddit_name = "Workspaces"
-    elif "joke" in text.lower():
+    elif b"joke" in text.lower():
         subreddit_name = "Jokes"
     else:
         subreddit_name = "GetMotivated"
