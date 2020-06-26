@@ -64,7 +64,7 @@ class Posts(db.Model):
     name = db.Column(db.String, unique=True, nullable=False)
     url = db.Column(db.String, nullable=False)
 
-    def __init__(self, name, URL):
+    def __init__(self, name, url):
         self.name = name
         self.url = url
 
@@ -135,7 +135,7 @@ quick_replies_list = [
 
 def send_message(token, recipient, text):
     """Send the message text to recipient with id recipient."""
-    decoded_text = text.decode("ASCII")
+    decoded_text = text.decode("utf-8")
     if "meme" in decoded_text.lower():
         subreddit_name = "memes"
     elif "shower" in decoded_text.lower():
