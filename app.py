@@ -135,20 +135,18 @@ quick_replies_list = [
 
 def send_message(token, recipient, text):
     """Send the message text to recipient with id recipient."""
-    print(type(text))
-    meme = b"meme"
-    print(type(meme))
-    if "meme" in text.lower():
+    decoded_text = text.decode("ASCII")
+    if "meme" in decoded_text.lower():
         subreddit_name = "memes"
-    elif "shower" in text.lower():
+    elif "shower" in decoded_text.lower():
         subreddit_name = "Showerthoughts"
-    elif "hmb" in text.lower():
+    elif "hmb" in decoded_text.lower():
         subreddit_name = "holdmybeer"
-    elif "lotr" in text.lower():
+    elif "lotr" in decoded_text.lower():
         subreddit_name = "lotrmemes"
-    elif "workspaces" in text.lower():
+    elif "workspaces" in decoded_text.lower():
         subreddit_name = "Workspaces"
-    elif "joke" in text.lower():
+    elif "joke" in decoded_text.lower():
         subreddit_name = "Jokes"
     else:
         subreddit_name = "GetMotivated"
