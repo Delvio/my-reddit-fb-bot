@@ -136,17 +136,17 @@ quick_replies_list = [
 def send_message(token, recipient, text):
     """Send the message text to recipient with id recipient."""
 
-    if b"meme" in text.lower():
+    if "meme" in text.lower():
         subreddit_name = "memes"
-    elif b"shower" in text.lower():
+    elif "shower" in text.lower():
         subreddit_name = "Showerthoughts"
-    elif b"hmb" in text.lower():
+    elif "hmb" in text.lower():
         subreddit_name = "holdmybeer"
-    elif b"lotr" in text.lower():
+    elif "lotr" in text.lower():
         subreddit_name = "lotrmemes"
-    elif b"workspaces" in text.lower():
+    elif "workspaces" in text.lower():
         subreddit_name = "Workspaces"
-    elif b"joke" in text.lower():
+    elif "joke" in text.lower():
         subreddit_name = "Jokes"
     else:
         subreddit_name = "GetMotivated"
@@ -154,7 +154,7 @@ def send_message(token, recipient, text):
     myUser = get_or_create(db.session, Users, name=recipient)
 
     if (subreddit_name == "Showerthoughts") or (
-        sub_reddit_name == "holdmybeer"
+        subreddit_name == "holdmybeer"
     ):
         # for subreddits without flairs
         for submission in reddit.subreddit(subreddit_name).hot(limit=None):
