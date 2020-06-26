@@ -235,21 +235,21 @@ def send_message(token, recipient, text):
                     break
                 else:
                     continue
-                r = requests.post(
-                    "https://graph.facebook.com/v2.6/me/messages",
-                    params={"access_token": token},
-                    data=json.dumps(
-                        {
-                            "recipient": {"id": recipient},
-                            "message": {
-                                "text": payload_text,
-                                "quick_replies": quick_replies_list,
-                            }
-                            # "message": {"text": text.decode('unicode_escape')}
-                        }
-                    ),
-                    headers={"Content-type": "application/json"},
-                )
+        r = requests.post(
+            "https://graph.facebook.com/v2.6/me/messages",
+            params={"access_token": token},
+            data=json.dumps(
+                {
+                    "recipient": {"id": recipient},
+                    "message": {
+                        "text": payload_text,
+                        "quick_replies": quick_replies_list,
+                    }
+                    # "message": {"text": text.decode('unicode_escape')}
+                }
+            ),
+            headers={"Content-type": "application/json"},
+        )
     else:
         payload = "http://imgur.com/WeyNGtQ.jpg"
         for submission in reddit.subreddit(subreddit_name).hot(limit=None):
