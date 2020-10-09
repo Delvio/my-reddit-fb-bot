@@ -5,7 +5,7 @@ import os
 
 app = Flask(__name__)
 
-PAT = 'TOKEN'
+PAT = os.environ.get('FACEBOOK_TOKEN')
 
 @app.route('/', methods=['GET'])
 def handle_verification():
