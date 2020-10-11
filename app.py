@@ -2,6 +2,7 @@ from flask import Flask, request
 import json
 import requests
 import os
+import praw
 
 app = Flask(__name__)
 
@@ -50,13 +51,63 @@ def messaging_events(payload):
 
 def send_message(token, recipient, text):
     """Send the message text to recipient with id recipient."""
+
+    if "meme" in text.lower():
+        subreddit_name = "memes"
+    elif "shower" in text.lower():
+        subreddit_name = "Showerthoughts"
+    elif "hmb" in text.lower():
+        subreddit_name = "holdmybeer"
+    elif "lotr" in text.lower():
+        subreddit_name = "lotrmemes"
+    elif "workspaces" in text.lower():
+        subreddit_name = "Workspaces"
+    elif "joke" in text.lower():
+        subreddit_name = "Jokes"
+    else:
+        subreddit_name = "GetMotivated"
+
+    if subreddit_name == "memes":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+    if subreddit_name == "Showerthoughts":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+    if subreddit_name == "holdmybeer":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+    if subreddit_name == "lotrmemes":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+    if subreddit_name == "Workspaces":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+    if subreddit_name == "Jokes":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+    if subreddit_name == "GetMotivated":
+        for submission in reddit.subreddit(subreddit_name).hot(limit=None):
+            payload = submission.url
+            break
+
     r = requests.post(
         "https://graph.facebook.com/v3.3/me/messages",
         params={"access_token": token},
         data=json.dumps(
             {
                 "recipient": {"id": recipient},
-                "message": {"text": text.decode("unicode_escape")},
+                "message": {
+                    "attachment": {
+                        "type": "image",
+                        "payload": {"url": payload},
+                    },
+                },
             }
         ),
         headers={"Content-type": "application/json"},
