@@ -135,18 +135,17 @@ quick_replies_list = [
 
 def send_message(token, recipient, text):
     """Send the message text to recipient with id recipient."""
-    decoded_text = text.decode("utf-8")
-    if "meme" in decoded_text.lower():
+    if b"meme" in text.lower():
         subreddit_name = "memes"
-    elif "shower" in decoded_text.lower():
+    elif b"shower" in text.lower():
         subreddit_name = "Showerthoughts"
-    elif "hmb" in decoded_text.lower():
+    elif b"hmb" in text.lower():
         subreddit_name = "holdmybeer"
-    elif "lotr" in decoded_text.lower():
+    elif b"lotr" in text.lower():
         subreddit_name = "lotrmemes"
-    elif "workspaces" in decoded_text.lower():
+    elif b"workspaces" in text.lower():
         subreddit_name = "Workspaces"
-    elif "joke" in decoded_text.lower():
+    elif b"joke" in text.lower():
         subreddit_name = "Jokes"
     else:
         subreddit_name = "GetMotivated"
@@ -213,6 +212,7 @@ def send_message(token, recipient, text):
             "Original Content",
             None,
         ]
+
         for submission in reddit.subreddit(subreddit_name).hot(limit=None):
             if (submission.is_self == True) and (
                 submission.link_flair_text in approved_flairs
@@ -235,6 +235,7 @@ def send_message(token, recipient, text):
                     break
                 else:
                     continue
+
         r = requests.post(
             "https://graph.facebook.com/v2.6/me/messages",
             params={"access_token": token},
